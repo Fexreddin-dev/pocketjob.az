@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>PocketJob — təcili mikro-işlər və boş vaxtda qazanc</title>
+  <meta name="description" content="PocketJob: bu gün və sabah üçün qısamüddətli işlər. İşçi axtarırsınızsa elan verin, boş vaxtınız varsa uyğun işi tapıb birbaşa əlaqə saxlayın.">
+  <meta name="theme-color" content="#F1F5F9">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="PocketJob — təcili mikro-işlər">
+  <meta property="og:description" content="Boş saatını pula çevir. Təcili işçi tap və ya yaxınlıqdakı işlərə bax.">
+  <meta property="og:image" content="/icons/icon-512.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icons/icon-180.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Outfit:wght@600;700;800&display=swap">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/theme-init.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Əsas məzmuna keç</a>
+  <div id="offlineBar" class="offline-bar" role="status" hidden>İnternet bağlantısı yoxdur. Bağlantı bərpa olunana qədər yeniləmələr dayanacaq.</div>
+
+  <header class="topbar">
+    <div class="wrap bar">
+      <a class="brand" href="#/" aria-label="PocketJob, ana səhifə">
+        <svg class="logo" width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+          <rect x="2" y="2" width="30" height="30" rx="9" fill="#0A7F6B"/>
+          <path d="M2 19h30v4a9 9 0 0 1-9 9H11a9 9 0 0 1-9-9v-4Z" fill="#FFB547"/>
+          <path d="M6 19h22" stroke="#0A1626" stroke-width="1.6" stroke-dasharray="2.6 2.6" stroke-linecap="round" opacity=".55"/>
+          <path d="m10.5 12 4 4 9-8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="wordmark">Pocket<span class="wordmark-job">Job</span></span>
+      </a>
+
+      <nav class="nav" aria-label="Əsas menyu">
+        <a href="#/" data-nav="board">Elanlar</a>
+        <a href="#/mine" data-nav="mine">Mənim elanlarım</a>
+        <a href="#/inbox" data-nav="inbox">Mesajlar <span class="badge" data-unread hidden></span></a>
+      </nav>
+
+      <div class="bar-actions">
+        <a class="btn btn-primary bar-cta" href="#/new">
+          <svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          <span>Elan yarat</span>
+        </a>
+        <a class="btn-icon bar-tg" data-telegram href="#" target="_blank" rel="noopener" aria-label="Telegram kanalı">
+          <svg class="ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4 3 11l5 2 2 6 3-4 5 3 3-14Z"/></svg>
+        </a>
+        <button class="btn-icon" type="button" data-action="toggle-theme" aria-label="Görünüşü dəyiş"><span data-theme-icon></span></button>
+        <button class="btn-icon" type="button" data-action="open-account" aria-label="Hesab">
+          <svg class="ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <noscript><div class="wrap"><p class="page-lead">Bu sayt işləmək üçün JavaScript tələb edir.</p></div></noscript>
+
+    <!-- Elanlar -->
+    <section id="viewBoard" class="view" aria-label="Aktiv elanlar">
+      <div class="wrap">
+        <div class="hero">
+          <p class="live"><span class="live-dot" aria-hidden="true"></span><span id="liveText">Elanlar yüklənir…</span></p>
+          <h1 class="hero-title">Boş saatını pula çevir.</h1>
+          <p class="hero-lead">Bu gün və sabah üçün qısamüddətli işlər. Nömrə ilə birbaşa əlaqə, vasitəçi yoxdur.</p>
+        </div>
+
+        <div class="filters">
+          <label class="searchbar">
+            <svg class="ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <span class="sr-only">Axtar</span>
+            <input id="searchInput" type="search" placeholder="Vəzifə, metro və ya rayon axtar" autocomplete="off" enterkeyhint="search">
+          </label>
+          <select id="citySelect" class="input city-select" aria-label="Şəhər"></select>
+        </div>
+        <div id="chips" class="chips" role="group" aria-label="Sahələr"></div>
+
+        <div id="newBanner" class="banner" hidden></div>
+        <div id="jobsGrid" class="grid" aria-live="polite"></div>
+        <div class="more"><button id="loadMore" class="btn btn-lg" type="button" data-action="load-more" hidden>Daha çox göstər</button></div>
+      </div>
+    </section>
+
+    <!-- Elan yarat -->
+    <section id="viewNew" class="view" aria-label="Elan yarat" hidden></section>
+
+    <!-- Mənim elanlarım -->
+    <section id="viewMine" class="view" aria-label="Mənim elanlarım" hidden>
+      <div class="wrap">
+        <header class="page-head page-head-row">
+          <div>
+            <h1 class="page-title">Mənim elanlarım</h1>
+            <p class="page-lead">Paylaşdığınız elanları buradan idarə edin.</p>
+          </div>
+          <a class="btn btn-primary" href="#/new">Elan yarat</a>
+        </header>
+        <div id="mineNote" hidden></div>
+        <div id="mineGrid" class="grid"></div>
+      </div>
+    </section>
+
+    <!-- Mesajlar -->
+    <section id="viewInbox" class="view view-inbox" aria-label="Mesajlar" hidden>
+      <div class="wrap">
+        <div class="inbox">
+          <aside id="convList" class="inbox-list" aria-label="Söhbətlər"></aside>
+          <section id="thread" class="inbox-thread" aria-label="Söhbət"></section>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap foot">
+      <p class="foot-brand">PocketJob &copy; <span id="year">2026</span></p>
+      <nav class="foot-links" aria-label="Altlıq">
+        <a data-telegram href="#" target="_blank" rel="noopener">Telegram kanalı</a>
+        <a href="/qaydalar.html">İstifadə qaydaları və məxfilik</a>
+        <a id="footContact" href="#" hidden></a>
+      </nav>
+    </div>
+  </footer>
+
+  <nav id="tabbar" class="tabbar" aria-label="Mobil menyu">
+    <a href="#/" data-nav="board">
+      <svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+      <span>Elanlar</span>
+    </a>
+    <a href="#/inbox" data-nav="inbox">
+      <span class="tab-ic">
+        <svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/></svg>
+        <span class="badge badge-float" data-unread hidden></span>
+      </span>
+      <span>Mesajlar</span>
+    </a>
+    <a href="#/new" data-nav="new" class="tab-create">
+      <svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+      <span>Elan yarat</span>
+    </a>
+    <a href="#/mine" data-nav="mine">
+      <svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="3"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg>
+      <span>Mənimki</span>
+    </a>
+  </nav>
+
+  <div id="modalRoot"></div>
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+
+  <script src="/vendor/supabase.js"></script>
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>
